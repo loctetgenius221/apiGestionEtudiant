@@ -61,7 +61,10 @@ class EvaluationController extends Controller
      */
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
-        //
+        $evaluation->fill($request->validated());
+
+        $evaluation->update();
+        return $this->customJsonResponse("Étudiant modifié avec succès", $evaluation);
     }
 
     /**
@@ -69,6 +72,7 @@ class EvaluationController extends Controller
      */
     public function destroy(Evaluation $evaluation)
     {
-        //
+        $evaluation->delete();
+        return $this->customJsonResponse("Èvaluation supprimé avec succès", 200);
     }
 }

@@ -71,7 +71,7 @@ class EtudiantController extends Controller
             $etudiant->image = $image->store('etudiants', 'public');
         }
 
-        $etudiant->save();
+        $etudiant->update();
         return $this->customJsonResponse("Étudiant modifié avec succès", $etudiant);
     }
 
