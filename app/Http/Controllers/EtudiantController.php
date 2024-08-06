@@ -61,7 +61,20 @@ class EtudiantController extends Controller
      */
     public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
     {
-        //
+        $etudiant->fill($request->validated());
+        if ($request->hasFile('image')) {
+
+            if (File::exists(public_path("storage/" . $etudiant->image))) {
+                File::delete(public_path($etudiant->image));
+            }
+            $image = $request->file('image');
+            $etudiant->image = $image->store('etudiants', 'public');
+        }
+        if ($etudiant->quantite > 0) {
+            $etudiant->update(['disponible' => true]);
+        }
+        $etudiant->update();
+        return $this->customJsonResponse("etudiant modifié avec succès", $etudiant);
     }
 
     /**
@@ -69,6 +82,7 @@ class EtudiantController extends Controller
      */
     public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete();
+        return $this->customJsonResponse("Étudiant supprimé avec succès", 200);
     }
 }
