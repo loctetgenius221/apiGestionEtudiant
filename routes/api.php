@@ -14,5 +14,6 @@ Route::middleware("auth")->group(
     function () {
         Route::get("logout", [AuthController::class, "logout"]);
         Route::get("refresh", [AuthController::class, "refresh"]);
+        Route::apiResource('etudiants', EtudiantController::class)->only('store', 'destroy');
     }
 );

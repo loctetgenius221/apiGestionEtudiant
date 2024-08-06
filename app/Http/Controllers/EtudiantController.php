@@ -30,7 +30,14 @@ class EtudiantController extends Controller
      */
     public function store(StoreEtudiantRequest $request)
     {
-        //
+        $etudiant = new Etudiant();
+        $etudiant->fill($request->validated());
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $etudiant->image = $image->store('etudiants', 'public');
+        }
+        $etudiant->save();
+        return $this->customJsonResponse("etudiant créé avec succès", $etudiant, 201);
     }
 
     /**
