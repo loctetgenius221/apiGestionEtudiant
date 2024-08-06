@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class UpdateEvaluationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateEvaluationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,18 @@ class UpdateEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'etudiant_id' => ['required', 'exists:etudiants,id'],
+            'matiere_id' => ['required', 'exists:matieres,id'],
+            'date' => ['required', 'date', 'before_or_equal:today'],
+            'valeur' => ['required', 'numeric', 'between:0,20'],
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(
+            ['success' => false, 'errors' => $validator->errors()],
+            422
+        ));
     }
 }

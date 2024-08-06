@@ -45,7 +45,7 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
-        //
+        return $this->customJsonResponse("Etudiant récupéré avec succès", $etudiant);
     }
 
     /**
@@ -62,20 +62,19 @@ class EtudiantController extends Controller
     public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
     {
         $etudiant->fill($request->validated());
-        if ($request->hasFile('image')) {
 
+        if ($request->hasFile('image')) {
             if (File::exists(public_path("storage/" . $etudiant->image))) {
-                File::delete(public_path($etudiant->image));
+                File::delete(public_path("storage/" . $etudiant->image));
             }
             $image = $request->file('image');
             $etudiant->image = $image->store('etudiants', 'public');
         }
-        if ($etudiant->quantite > 0) {
-            $etudiant->update(['disponible' => true]);
-        }
-        $etudiant->update();
-        return $this->customJsonResponse("etudiant modifié avec succès", $etudiant);
+
+        $etudiant->save();
+        return $this->customJsonResponse("Étudiant modifié avec succès", $etudiant);
     }
+
 
     /**
      * Remove the specified resource from storage.
