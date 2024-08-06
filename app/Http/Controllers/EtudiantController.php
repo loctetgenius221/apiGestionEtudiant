@@ -13,7 +13,8 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        //
+        $etudiants = Etudiant::all();
+        return $this->customJsonResponse("Liste des étudiants", $etudiants);
     }
 
     /**
