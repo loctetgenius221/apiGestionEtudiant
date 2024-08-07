@@ -29,7 +29,15 @@ class EvaluationController extends Controller
      */
     public function store(StoreEvaluationRequest $request)
     {
-        //
+        // Valider les données entrantes
+        $validatedData = $request->validated();
+
+        // Créer une nouvelle instance de Evaluation avec les données validées
+        $evaluation = Evaluation::create($validatedData);
+
+        // Retourner une réponse JSON indiquant que l'évaluation a été créée avec succès
+        return $this->customJsonResponse("Évaluation créée avec succès", $evaluation, 201);
+
     }
 
     /**
@@ -53,7 +61,10 @@ class EvaluationController extends Controller
      */
     public function update(UpdateEvaluationRequest $request, Evaluation $evaluation)
     {
-        //
+        $evaluation->fill($request->validated());
+
+        $evaluation->update();
+        return $this->customJsonResponse("Étudiant modifié avec succès", $evaluation);
     }
 
     /**
@@ -61,6 +72,7 @@ class EvaluationController extends Controller
      */
     public function destroy(Evaluation $evaluation)
     {
-        //
+        $evaluation->delete();
+        return $this->customJsonResponse("Èvaluation supprimé avec succès", 200);
     }
 }

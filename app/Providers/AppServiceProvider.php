@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use routes;
+use Dedoc\Scramble\Scramble;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

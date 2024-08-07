@@ -1,0 +1,13 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "API Gestion Etudiant",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api",
+            "description": "Api permettant de faire la gestion des étudiants et de leurs note pour une école."
+        }
+    ]
+}
