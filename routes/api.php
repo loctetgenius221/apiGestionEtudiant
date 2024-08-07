@@ -18,7 +18,7 @@ Route::middleware("auth")->group(
         Route::post('etudiants/{etudiant}', [EtudiantController::class, 'update']);
 
         Route::post('/evaluations', [EvaluationController::class, 'store']);
-        Route::put('/evaluations/{evaluation}', [EvaluationController::class, 'update']);
+        Route::post('/evaluations/{evaluation}', [EvaluationController::class, 'update']);
         Route::delete('/evaluations/{evaluation}', [EvaluationController::class, 'destroy']);
     }
 );
