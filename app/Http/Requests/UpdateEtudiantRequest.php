@@ -24,13 +24,13 @@ class UpdateEtudiantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "prenom" => ["required", "string", "max:255"],
-            "nom" => ["required", "string", "max:255"],
-            "adresse" => ["required", "string", "max:255"],
-            "telephone" => ["required", "integer", "unique:etudiants,telephone"],
-            "date_de_naissance" => ["required", "date", "before:today"],
-            "matricule" => ["required", "string", "unique:etudiants,matricule"],
-            "email" => ["required", "string", "email", "max:255", "unique:etudiants,email"],
+            "prenom" => ["sometimes", "string", "max:255"],
+            "nom" => ["sometimes", "string", "max:255"],
+            "adresse" => ["sometimes", "string", "max:255"],
+            "telephone" => ["sometimes", "integer", "unique:etudiants,telephone"],
+            "date_de_naissance" => ["sometimes", "date", "before:today"],
+            "matricule" => ["sometimes", "string", "unique:etudiants,matricule"],
+            "email" => ["sometimes", "string", "email", "max:255", "unique:etudiants,email"],
             "mot_de_pass" => ["nullable", "string", "min:8"],
             "photo" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"]
         ];
