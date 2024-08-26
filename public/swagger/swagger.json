@@ -5,6 +5,16 @@
       "version": "1.0.0",
       "description": "API pour gérer les étudiants, leurs notes, et l'authentification des utilisateurs dans une école."
     },
+    "tags": [
+      {
+        "name": "Authentification",
+        "description": "Endpoints pour l'authentification des utilisateurs."
+      },
+      {
+        "name": "Étudiants",
+        "description": "Endpoints pour la gestion des étudiants."
+      }
+    ],
     "servers": [
       {
         "url": "http://127.0.0.1:8000/api",
@@ -341,6 +351,16 @@
               "type": "string",
               "format": "email",
               "example": "john.doe@example.com"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-08-08T10:00:00Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-08-08T10:00:00Z"
             }
           }
         },
@@ -351,67 +371,141 @@
               "type": "integer",
               "example": 1
             },
-            "nom": {
-              "type": "string",
-              "example": "Doe"
-            },
             "prenom": {
               "type": "string",
-              "example": "John"
+              "example": "Moussa"
+            },
+            "nom": {
+              "type": "string",
+              "example": "Sagna"
+            },
+            "adresse": {
+              "type": "string",
+              "example": "Dakar, Sénégal"
+            },
+            "telephone": {
+              "type": "integer",
+              "example": 771234567
+            },
+            "date_de_naissance": {
+              "type": "string",
+              "format": "date",
+              "example": "2000-01-01"
+            },
+            "matricule": {
+              "type": "string",
+              "example": "2024A001"
             },
             "email": {
               "type": "string",
               "format": "email",
-              "example": "john.doe@student.com"
+              "example": "moussa@example.com"
             },
-            "adresse": {
+            "photo": {
               "type": "string",
-              "example": "123 Rue Principale"
+              "nullable": true,
+              "example": "photo.jpg"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-08-08T10:00:00Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-08-08T10:00:00Z"
             }
           }
         },
         "EtudiantCreate": {
           "type": "object",
+          "required": ["prenom", "nom", "adresse", "telephone", "date_de_naissance", "matricule", "email"],
           "properties": {
-            "nom": {
-              "type": "string",
-              "example": "Doe"
-            },
             "prenom": {
               "type": "string",
-              "example": "John"
+              "example": "Moussa"
+            },
+            "nom": {
+              "type": "string",
+              "example": "Sagna"
+            },
+            "adresse": {
+              "type": "string",
+              "example": "Dakar, Sénégal"
+            },
+            "telephone": {
+              "type": "integer",
+              "example": 771234567
+            },
+            "date_de_naissance": {
+              "type": "string",
+              "format": "date",
+              "example": "2000-01-01"
+            },
+            "matricule": {
+              "type": "string",
+              "example": "2024A001"
             },
             "email": {
               "type": "string",
               "format": "email",
-              "example": "john.doe@student.com"
+              "example": "moussa@example.com"
             },
-            "adresse": {
+            "mot_de_pass": {
               "type": "string",
-              "example": "123 Rue Principale"
+              "nullable": true,
+              "example": "password123"
+            },
+            "photo": {
+              "type": "string",
+              "nullable": true,
+              "example": "photo.jpg"
             }
-          },
-          "required": ["nom", "prenom", "email"]
+          }
         },
         "EtudiantUpdate": {
           "type": "object",
           "properties": {
-            "nom": {
-              "type": "string",
-              "example": "Doe"
-            },
             "prenom": {
               "type": "string",
-              "example": "John"
+              "example": "Moussa"
+            },
+            "nom": {
+              "type": "string",
+              "example": "Sagna"
+            },
+            "adresse": {
+              "type": "string",
+              "example": "Dakar, Sénégal"
+            },
+            "telephone": {
+              "type": "integer",
+              "example": 771234567
+            },
+            "date_de_naissance": {
+              "type": "string",
+              "format": "date",
+              "example": "2000-01-01"
+            },
+            "matricule": {
+              "type": "string",
+              "example": "2024A001"
             },
             "email": {
               "type": "string",
               "format": "email",
-              "example": "john.doe@student.com"
+              "example": "moussa@example.com"
             },
-            "adresse": {
+            "mot_de_pass": {
               "type": "string",
-              "example": "123 Rue Principale"
+              "nullable": true,
+              "example": "password123"
+            },
+            "photo": {
+              "type": "string",
+              "nullable": true,
+              "example": "photo.jpg"
             }
           }
         }
@@ -419,7 +513,8 @@
       "securitySchemes": {
         "BearerAuth": {
           "type": "http",
-          "scheme": "bearer"
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
         }
       }
     }
